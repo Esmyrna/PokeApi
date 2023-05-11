@@ -1,14 +1,38 @@
-import { useGlobalContext } from "@/context/global"
+import { useGlobalContext } from "@/context/global";
+import * as C from "../styles/Home";
 
+ 
+
+interface Pokemon {
+  name: string;
+  url: string;
+  id: number;
+  image: string;
+}
 
 
 export default function Home() {
+  const { allPokemonData } = useGlobalContext();
 
-  const g = useGlobalContext(); 
-  console.log(g)
   return (
     <>
-      <main></main>
+      <main>
+        <C.AllPokemon>
+          {allPokemonData ? (
+            allPokemonData.map((pokemon: Pokemon) => {
+              return (
+                <C.Pokemon key={pokemon.id}>
+                  <C.CardImage>
+                    <C.Img></C.Img>
+                  </C.CardImage>
+                </C.Pokemon>
+              );
+            })
+          ) : (
+            <div>Loading...</div>
+          )}
+        </C.AllPokemon>
+      </main>
     </>
-  )
+  );
 }

@@ -13,6 +13,8 @@ interface GlobalContextProps {
   searchResults: Pokemon[];
   next: string;
   loading: boolean;
+  allPokemonData: Pokemon[];
+  
 }
 
 interface Action {
@@ -30,6 +32,7 @@ const GlobalContext = createContext<GlobalContextProps>({
   searchResults: [],
   next: "",
   loading: false,
+  allPokemonData: [],
 });
 
 const LOADING = "LOADING";
@@ -70,6 +73,7 @@ export const GlobalProvider = ({ children }: { children: ReactNode }) => {
     next: "",
     loading: false,
     value: "",
+    allPokemonData: [],
   };
 
   const [state, dispatch] = useReducer(reducer, initialState);
