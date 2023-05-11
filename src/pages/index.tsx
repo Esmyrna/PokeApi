@@ -8,7 +8,6 @@ export default function Home() {
   console.log(g)
   return (
     <>
-     
       <main></main>
     </>
   )

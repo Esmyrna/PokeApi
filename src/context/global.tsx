@@ -1,13 +1,9 @@
-import { useContext, createContext, ReactNode, useReducer, useEffect } from "react";
-
-// interface para tipar informações do pokemon
+import { useContext, createContext, ReactNode, useReducer, useEffect, useState } from "react";
 
 interface Pokemon {
   name: string;
   url: string;
 }
-
-// interface para tipar as propiedades do meu estado inicial
 
 interface GlobalContextProps {
   value: string;
@@ -19,12 +15,12 @@ interface GlobalContextProps {
   loading: boolean;
 }
 
-// interface para a ação
-
 interface Action {
   type: string;
   payload?: any;
 }
+
+const GET_ALL_POKEMON = "GET_ALL_POKEMON";
 
 const GlobalContext = createContext<GlobalContextProps>({
   value: "",
@@ -36,32 +32,36 @@ const GlobalContext = createContext<GlobalContextProps>({
   loading: false,
 });
 
-// função reducer
+const LOADING = "LOADING";
+
 const reducer = (state: GlobalContextProps, action: Action) => {
   switch (action.type) {
-    // adicionar um caso para cada tipo de ação
+    case LOADING:
+      return {...state, loading: true}
+    case GET_ALL_POKEMON:
+      return {...state, allPokemon: action.payload, loading: false }
     default:
       return state;
   }
 }
 
 export const GlobalProvider = ({ children }: { children: ReactNode }) => {
-
   const baseUrl = 'https://pokeapi.co/api/v2/'
 
   const allPokemon = async () => {
     const res = await fetch(`${baseUrl}pokemon?limit=20`);
     const data = await res.json();
-    console.log(data)
+     dispatch({type: "GET_ALL_POKEMON", payload: data.results});
+
+  const AllPokemons = [];
+  for(const pokemon of data.results){
+      const pokemonRes = await fetch(pokemon.url);
+      const pokemonData =  await pokemonRes.json();
+      AllPokemons.push(pokemonData);
+  }
+    setallPokemonData(AllPokemons)
   }
 
-  // Renderizar meu componente com os dados da API:
-
-  useEffect(() => {
-    allPokemon();
-  })
-
-  // objeto do meu estado inicial:
   const initialState: GlobalContextProps = {
     allPokemon: [],
     pokemon: { name: "", url: "" },
@@ -72,7 +72,13 @@ export const GlobalProvider = ({ children }: { children: ReactNode }) => {
     value: "",
   };
 
-  const [state, dispatch] = useReducer(reducer, initialState)
+  const [state, dispatch] = useReducer(reducer, initialState);
+  const [allPokemonData, setallPokemonData] = useState<Pokemon[]>([]);
+
+
+  useEffect(() => {
+    allPokemon();
+  }, []);
 
   return (
     <GlobalContext.Provider value={state}>
