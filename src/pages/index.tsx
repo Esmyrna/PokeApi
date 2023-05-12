@@ -1,34 +1,32 @@
 import { useGlobalContext } from "@/context/global";
-import * as C from "../styles/Home";
-import GlobalStyle, *  as Jolonga from '../styles/global'
- 
+import variable from "../styles/global.module.scss"
 export default function Home() {
   const { allPokemonData } = useGlobalContext();
 console.log(allPokemonData)
   return (
     <>
       <main>
-        <GlobalStyle />
-        <C.AllPokemon>
+   
+        <div className={variable.body}>
           {allPokemonData ? (
             allPokemonData.map((pokemon) => {
               return (
-                <C.Pokemon key={pokemon.id}>
-                  <C.CardImage>
-                    <C.Img src={pokemon.sprites.other.home.front_shiny}
-                    alt={pokemon.name}></C.Img>
-                  </C.CardImage>
-                  <C.CardBody>
-                    <C.Title>{pokemon.name}</C.Title>
-                    <C.Text>More details: &nbsp; &rarr; </C.Text>
-                  </C.CardBody>
-                </C.Pokemon>
+                <div className={variable.background} key={pokemon.id}>
+                  <div className={variable.cardImage}>
+                    <img src={pokemon.sprites.other.home.front_shiny}
+                    alt={pokemon.name}/>
+                  </div>
+                  <div className="cardBody">
+                    <h3>{pokemon.name}</h3>
+                    <p>More details: &nbsp; &rarr; </p>
+                  </div>
+                </div>
               );
             })
           ) : (
             <div>Loading...</div>
           )}
-        </C.AllPokemon>
+        </div>
       </main>
     </>
   );

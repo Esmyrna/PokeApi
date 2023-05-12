@@ -1,0 +1,23 @@
+@mixin reset() {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  list-style: none;
+}
+
+.my-class * {
+  @include reset();
+}
+  .body {
+  background-color: #261111;
+  font-family: Arial, sans-serif;
+  
+}
+.allPokemon {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  grid-gap: 2rem;
+  padding: 1rem;
+  margin: 3rem 15rem;
+}
+
