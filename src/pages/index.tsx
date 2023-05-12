@@ -13,10 +13,15 @@ console.log(allPokemonData)
           {allPokemonData ? (
             allPokemonData.map((pokemon) => {
               return (
-                <C.Pokemon>
+                <C.Pokemon key={pokemon.id}>
                   <C.CardImage>
-                    <C.Img src={pokemon.sprites.other.home.front_shiny}></C.Img>
+                    <C.Img src={pokemon.sprites.other.home.front_shiny}
+                    alt={pokemon.name}></C.Img>
                   </C.CardImage>
+                  <C.CardBody>
+                    <C.Title>{pokemon.name}</C.Title>
+                    <C.Text>More details: &nbsp; &rarr; </C.Text>
+                  </C.CardBody>
                 </C.Pokemon>
               );
             })
