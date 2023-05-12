@@ -1,16 +1,10 @@
 import { useGlobalContext } from "@/context/global";
 import * as C from "../styles/Home";
 import GlobalStyle, *  as Jolonga from '../styles/global'
-interface Pokemon {
-  name: string;
-  url: string;
-  id: number;
-  image: string;
-}
-
+ 
 export default function Home() {
   const { allPokemonData } = useGlobalContext();
-
+console.log(allPokemonData)
   return (
     <>
       <main>
@@ -21,7 +15,7 @@ export default function Home() {
               return (
                 <C.Pokemon>
                   <C.CardImage>
-                    <C.Img></C.Img>
+                    <C.Img src={pokemon.sprites.other.home.front_shiny}></C.Img>
                   </C.CardImage>
                 </C.Pokemon>
               );

@@ -1,6 +1,8 @@
+import { Pokemon } from "@/styles/Home";
 import { useContext, createContext, ReactNode, useReducer, useEffect, useState } from "react";
 
 interface Pokemon {
+  sprites: any;
   name: string;
   url: string;
 }
@@ -27,7 +29,7 @@ const GET_ALL_POKEMON = "GET_ALL_POKEMON";
 const GlobalContext = createContext<GlobalContextProps>({
   value: "",
   allPokemon: [],
-  pokemon: { name: "", url: "" },
+  pokemon: { name: "", url: "", sprites: [] },
   pokemonDataBase: [],
   searchResults: [],
   next: "",
@@ -67,7 +69,7 @@ export const GlobalProvider = ({ children }: { children: ReactNode }) => {
 
   const initialState: GlobalContextProps = {
     allPokemon: [],
-    pokemon: { name: "", url: "" },
+    pokemon: { name: "", url: "" , sprites: []},
     pokemonDataBase: [],
     searchResults: [],
     next: "",
@@ -85,7 +87,7 @@ export const GlobalProvider = ({ children }: { children: ReactNode }) => {
   }, []);
 
   return (
-    <GlobalContext.Provider value={state}>
+    <GlobalContext.Provider value={{ ...state, allPokemonData }}>
       {children}
     </GlobalContext.Provider>
   );
