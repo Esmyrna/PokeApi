@@ -1,8 +1,6 @@
 import { useGlobalContext } from "@/context/global";
 import * as C from "../styles/Home";
-
- 
-
+import GlobalStyle, *  as Jolonga from '../styles/global'
 interface Pokemon {
   name: string;
   url: string;
@@ -10,18 +8,18 @@ interface Pokemon {
   image: string;
 }
 
-
 export default function Home() {
   const { allPokemonData } = useGlobalContext();
 
   return (
     <>
       <main>
+        <GlobalStyle />
         <C.AllPokemon>
           {allPokemonData ? (
-            allPokemonData.map((pokemon: Pokemon) => {
+            allPokemonData.map((pokemon) => {
               return (
-                <C.Pokemon key={pokemon.id}>
+                <C.Pokemon>
                   <C.CardImage>
                     <C.Img></C.Img>
                   </C.CardImage>
