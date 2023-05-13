@@ -17,7 +17,7 @@ const PokemonCard: React.FC<PokemonCardProps> = ({pokemon}) => {
 
   return (
     <C.Card >
-      <button onClick={changShinyState}>Show shiny</button>
+      <C.Button onClick={changShinyState}>Show shiny</C.Button>
       <C.ImageCard>
         <C.Img src={shouldShowShiny
           ? pokemon.sprites.other.home.front_shiny

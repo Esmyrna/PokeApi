@@ -64,3 +64,18 @@ export const Title = styled.h3`
 `;
 
 export const Text = styled.p``;
+
+export const Button = styled.button`
+  background-color: #ADD8E6;
+  height: 8%;
+  width: 100%;
+  border: none;
+  border-radius: 12px;
+  font-weight: bold;
+  font-family: "Inter", sans-serif;
+  cursor: pointer;
+
+  &:hover{
+     opacity: 0.8;
+  }
+`
