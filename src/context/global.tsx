@@ -1,10 +1,10 @@
 import { useContext, createContext, ReactNode, useReducer, useEffect, useState } from "react";
 
-interface Pokemon {
+export interface Pokemon {
   sprites: any;
   name: string;
   url: string;
-  id: any;
+  id: number;
 }
 
 interface GlobalContextProps {
@@ -29,7 +29,7 @@ const GET_ALL_POKEMON = "GET_ALL_POKEMON";
 const GlobalContext = createContext<GlobalContextProps>({
   value: "",
   allPokemon: [],
-  pokemon: { name: "", url: "", sprites: [], id: ""},
+  pokemon: { name: "", url: "", sprites: [], id: 1},
   pokemonDataBase: [],
   searchResults: [],
   next: "",
@@ -69,7 +69,7 @@ export const GlobalProvider = ({ children }: { children: ReactNode }) => {
 
   const initialState: GlobalContextProps = {
     allPokemon: [],
-    pokemon: { name: "", url: "" , sprites: [], id: ""},
+    pokemon: { name: "", url: "" , sprites: [], id: 1},
     pokemonDataBase: [],
     searchResults: [],
     next: "",
