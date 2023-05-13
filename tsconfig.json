@@ -18,6 +18,6 @@
       "@/*": ["./src/*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "src/styles/Home.sass"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "src/styles/Home.ts"],
   "exclude": ["node_modules"]
 }

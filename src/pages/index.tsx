@@ -1,32 +1,43 @@
 import { useGlobalContext } from "@/context/global";
-import variable from "../styles/global.module.scss"
+import * as C from "../styles/Home"
+import { useState } from "react";
 export default function Home() {
   const { allPokemonData } = useGlobalContext();
-console.log(allPokemonData)
+
+  console.log(allPokemonData)
+
+  const [shouldShowShinies, setShouldShowShinies] = useState(false);
+
+  const changShinyState = (e: React.MouseEvent) => {
+    setShouldShowShinies(current => !current)
+  }
   return (
     <>
       <main>
-   
-        <div className={variable.body}>
+
+        <C.AllPokemon>
           {allPokemonData ? (
             allPokemonData.map((pokemon) => {
               return (
-                <div className={variable.background} key={pokemon.id}>
-                  <div className={variable.cardImage}>
-                    <img src={pokemon.sprites.other.home.front_shiny}
-                    alt={pokemon.name}/>
-                  </div>
-                  <div className="cardBody">
-                    <h3>{pokemon.name}</h3>
+                <C.Card key={pokemon.id}>
+                  <button onClick={changShinyState}>Show shiny</button>
+                  <C.ImageCard>
+                    <C.Img src={shouldShowShinies 
+                                ? pokemon.sprites.other.home.front_shiny
+                                : pokemon.sprites.other.home.front_default}
+                                alt={pokemon.name} />
+                  </C.ImageCard>
+                  <C.CardBody>
+                    <h3>{pokemon.name[0].toUpperCase().concat(pokemon.name.slice(1))}</h3>
                     <p>More details: &nbsp; &rarr; </p>
-                  </div>
-                </div>
+                  </C.CardBody>
+                </C.Card>
               );
             })
           ) : (
             <div>Loading...</div>
           )}
-        </div>
+        </C.AllPokemon>
       </main>
     </>
   );

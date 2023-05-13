@@ -1,4 +1,3 @@
-import { Pokemon } from "@/styles/Home";
 import { useContext, createContext, ReactNode, useReducer, useEffect, useState } from "react";
 
 interface Pokemon {
