@@ -12,7 +12,7 @@ const PokemonGrid = () => {
         allPokemonData.map((mappedPokemon) => {
           return (
             <PokemonCard key={mappedPokemon.id} 
-                         pokemon={mappedPokemon} />
+                         pokemon={mappedPokemon}  />
           );
         })
       ) : (
