@@ -8,9 +8,7 @@ export interface Pokemon {
   id: number;
   types: [];
   height: number;
-  stats: [];
   abilities: [];
-  moves: [],
 }
 
 interface GlobalContextProps {
@@ -23,7 +21,8 @@ interface GlobalContextProps {
   loading: boolean;
   allPokemonData: Pokemon[];
   getPokemon:  any;
- 
+  realTimeSearch: string
+  
   
 }
 
@@ -32,24 +31,28 @@ interface Action {
   payload?: any;
 }
 
+const LOADING = "LOADING";
 const GET_ALL_POKEMON = "GET_ALL_POKEMON";
 const GET_POKEMON = "GET_POKEMON"
+const GET_POKEMON_DATABASE = "GET_POKEMON_DATABASE"
+const GET_SEARCH = "GET_SEARCH";
 
 const GlobalContext = createContext<GlobalContextProps>({
   value: "",
   allPokemon: [],
-  pokemon: { name: "", url: "", sprites: [], id: 1, types: [], height: 1, stats: [],  abilities: [], moves: []},  
+  pokemon: { name: "", url: "", sprites: [], id: 1, types: [], height: 1,  abilities: []},  
   pokemonDataBase: [],
   searchResults: [],
   next: "",
   loading: false,
   allPokemonData: [],
-  getPokemon: Object
+  getPokemon: Object,
+  realTimeSearch: ""
    
  
 });
 
-const LOADING = "LOADING";
+
 
 const reducer = (state: GlobalContextProps, action: Action) => {
   switch (action.type) {
@@ -59,6 +62,10 @@ const reducer = (state: GlobalContextProps, action: Action) => {
       return {...state, allPokemon: action.payload, loading: false }
     case GET_POKEMON:
       return {...state, pokemon: action.payload, loading: false }
+    case GET_POKEMON_DATABASE:
+      return {...state, pokemon: action.payload, loading: false }
+    case GET_SEARCH:
+        return { ...state, searchResults: action.payload, loading: false };
     default:
       return state;
   }
@@ -90,19 +97,38 @@ export const GlobalProvider = ({ children }: { children: ReactNode }) => {
   
   }
 
+   const getPokemonDataBase = async () => {
+    dispatch({type: "LOADING"});
+    const res = await fetch(`${baseUrl}pokemon?limit-100000offset=0`)
+    const data = await res.json();
+
+    dispatch({type: "GET_POKEMON_DATABASE", payload: data})
+   }
+
+   // real time search
+
    
+   const realTimeSearch =  async (search: string) => {
+    dispatch({ type: "LOADING" });
+    //search pokemon database
+    const res = state.pokemonDataBase.filter((pokemon) => {
+      return pokemon.name.includes(search.toLowerCase());
+    });
+
+    dispatch({ type: "GET_SEARCH", payload: res });
+   }
     
   const initialState: GlobalContextProps = {
     allPokemon: [],
-    pokemon: { name: "", url: "" , sprites: [], id: 1, types: [], height: 1, stats: [],  abilities: [], moves: []},
+    pokemon: { name: "", url: "" , sprites: [], id: 1, types: [], height: 1, abilities: []},
     pokemonDataBase: [],
     searchResults: [],
     next: "",
     loading: false,
     value: "",
     allPokemonData: [],
-    getPokemon: []
-  
+    getPokemon: [],
+    realTimeSearch: ""
   };
 
   const [state, dispatch] = useReducer(reducer, initialState);
@@ -110,6 +136,8 @@ export const GlobalProvider = ({ children }: { children: ReactNode }) => {
 
 
   useEffect(() => {
+    getPokemonDataBase();
+    realTimeSearch('pika');
     allPokemon();
   }, []);
 

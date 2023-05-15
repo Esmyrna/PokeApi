@@ -1,12 +1,30 @@
-import { useGlobalContext } from '@/context/global';
+import { Pokemon, useGlobalContext } from '@/context/global';
 import * as C from "../../styles/Home"
 import React from 'react'
 import PokemonCard from '../PokemonCard';
-const PokemonGrid = () => {
+import Form from '../Form';
+import { SearchResults } from '@/styles/Form';
 
-  const { allPokemonData } = useGlobalContext();
+type ChildComponentProps = {
+  search: string;
+  setSearch: React.Dispatch<React.SetStateAction<string>>;
+};
+
+const PokemonGrid:  React.FC<ChildComponentProps> = ({ search, setSearch })=> {
+
+  const { allPokemonData, searchResults, realTimeSearch } = useGlobalContext();
+
+
 
   return (
+    <>
+     <Form />
+    {search &&  <SearchResults>
+ 
+    </SearchResults>
+    
+    
+    }
     <C.AllPokemon>
       {allPokemonData ? (
         allPokemonData.map((mappedPokemon) => {
@@ -19,6 +37,7 @@ const PokemonGrid = () => {
         <div>Loading...</div>
       )}
     </C.AllPokemon>
+    </>
   )
 }
 

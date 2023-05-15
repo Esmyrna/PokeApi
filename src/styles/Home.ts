@@ -8,8 +8,16 @@ export const AllPokemon = styled.div`
     padding: 1rem;
     margin: 3rem 15rem;
   
-
+    @media (max-width: 700px) {
+        grid-template-columns: 1fr;
+        margin: auto;
+        width: 300px;
+        text-align: center;
+         
+    }
 `;
+
+
 
 export const Card = styled.div`
     display: flex;
@@ -25,6 +33,15 @@ export const Card = styled.div`
       transform: translateY(-5px);
     }
    
+    @media (max-width: 700px) { 
+      grid-template-columns: 1fr;
+      margin-bottom: 120px;
+      max-width: 320px;
+      text-align: center;
+      
+    }
+
+    
     
 `;
 

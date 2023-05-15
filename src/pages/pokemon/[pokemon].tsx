@@ -9,6 +9,8 @@ const Pokemon = () => {
   const { pokemon } = router.query;
 
   const {getPokemon, loading, pokemon: pokemonItem} = useGlobalContext();
+
+  
   
   useEffect(() => {
     if(pokemon){
@@ -18,26 +20,7 @@ const Pokemon = () => {
 
   console.log(pokemon);
 
-  const pkColors = [
-    "#f8d5a3",
-    "#f5b7b1",
-    "#c39bd3",
-    "#aed6f1",
-    "#a3e4d7",
-    "#f9e79f",
-    "#fadbd8",
-    "#d2b4de",
-    "#a9cce3",
-    "#a2d9ce",
-    "#f7dc6f",
-    "#f5cba7",
-    "#bb8fce",
-    "#85c1e9",
-    "#76d7c4",
-  ];
-
-  const randomColor = pkColors[Math.floor(Math.random() * pkColors.length)];
-  
+ 
 
   return (
   
@@ -54,6 +37,7 @@ const Pokemon = () => {
             {pokemonItem.name}
           </C.PokemonTitle>
        <C.Pokemon>
+        
         <C.PokeInfo>
         <C.PokemonSubTitle>
               Name:
@@ -84,26 +68,8 @@ const Pokemon = () => {
               })}
             </C.PokemonText>
         </C.PokeInfo>
-        <C.PokeInfo>
-        <C.PokemonSubTitle>
-              Stats
-            </C.PokemonSubTitle>
-            <C.PokemonText>
-              {pokemonItem?.stats?.map((stat: any) => {
-                return <p key={stat.stat.name}>{stat.stat.name},</p>;
-              })}
-            </C.PokemonText>
-        </C.PokeInfo>
-        <C.PokeInfo>
-        <C.PokemonSubTitle>
-              A few moves:
-            </C.PokemonSubTitle>
-            <C.PokemonText>
-              {pokemonItem?.moves?.slice(0, 3).map((move: any) => {
-                return <p key={move.move.name}>{move.move.name},</p>;
-              })}
-               </C.PokemonText>
-        </C.PokeInfo>
+        
+       
        </C.Pokemon>
           </C.PokeBody>
              </>
