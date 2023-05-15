@@ -1,5 +1,6 @@
 import PokemonGrid from "@/components/PokemonGrid";
 import { useGlobalContext } from "@/context/global";
+import { Pokemon } from "@/styles/Pokemon";
  
 import { useState } from "react";
 
@@ -14,7 +15,7 @@ export default function Home() {
   return (
     <>
       <main>
-      <PokemonGrid search={search} setSearch={setSearch} />
+      <PokemonGrid     />
       </main>
     </>
   );

@@ -1,6 +1,6 @@
 import styled from "styled-components"
 
-const pkColors: string[] = ['#FF0000', '#00FF00', '#0000FF', '#FFFF00', '#FF00FF'];
+const pkColors: string[] = ['#DDA0DD', '#FFB6C1', '#FFF5EE', '#FFFF00', '#EE82EE'];
 
 
 export const ImgCard = styled.img`
@@ -49,6 +49,7 @@ export const PokemonText = styled.p`
     font-size: 1rem;
     font-weight: 500;
     color: #333;
+    
 `;
 
 export const PokemonSubTitle = styled.h5`

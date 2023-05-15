@@ -15,11 +15,15 @@ const PokemonCard: React.FC<PokemonCardProps> = ({pokemon}) => {
     setShouldShowShiny(current => !current)
   }
 
- 
+ const changeRoute = () => {
+    const color = shouldShowShiny ? 'shiny' : 'default';
+    Router.push(`/pokemon/${pokemon.name}`);
+   
+ }
   return (
     <C.Card >
       <C.Button onClick={changShinyState}>Show shiny</C.Button>
-      <C.ImageCard  >
+      <C.ImageCard onClick={changeRoute} >
         <C.Img src={shouldShowShiny
           ? pokemon.sprites.other.home.front_shiny
           : pokemon.sprites.other.home.front_default}
